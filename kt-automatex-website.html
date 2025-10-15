@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KT AutomateX - Next-Gen Automation Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&display=swap');
+        
+        * { font-family: 'Space Grotesk', sans-serif; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Syne', sans-serif; }
+        body { background: #0a0a0a; color: #ffffff; }
+        
+        .gradient-primary { background: linear-gradient(135deg, #00F5A0 0%, #00D9F5 100%); }
+        .gradient-text { background: linear-gradient(135deg, #00F5A0 0%, #00D9F5 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        
+        .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .glass-card:hover { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(0, 245, 160, 0.3); transform: translateY(-8px); box-shadow: 0 20px 60px rgba(0, 245, 160, 0.15); }
+        .glow-effect { box-shadow: 0 0 30px rgba(0, 245, 160, 0.3); }
+        .nav-glass { background: rgba(10, 10, 10, 0.8); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        
+        .mesh-gradient { background: radial-gradient(at 0% 0%, rgba(0, 245, 160, 0.15) 0px, transparent 50%), radial-gradient(at 100% 0%, rgba(0, 217, 245, 0.15) 0px, transparent 50%), radial-gradient(at 100% 100%, rgba(245, 87, 108, 0.15) 0px, transparent 50%), radial-gradient(at 0% 100%, rgba(79, 172, 254, 0.15) 0px, transparent 50%); }
+        
+        .hover-lift { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .hover-lift:hover { transform: translateY(-5px); }
+        
+        .btn-primary { background: linear-gradient(135deg, #00F5A0 0%, #00D9F5 100%); color: #0a0a0a; font-weight: 600; transition: all 0.3s ease; }
+        .btn-primary:hover { box-shadow: 0 10px 40px rgba(0, 245, 160, 0.4); transform: translateY(-2px); }
+        
+        .btn-outline { border: 2px solid rgba(0, 245, 160, 0.5); color: #00F5A0; font-weight: 600; transition: all 0.3s ease; }
+        .btn-outline:hover { background: rgba(0, 245, 160, 0.1); border-color: #00F5A0; }
+        
+        .floating { animation: floating 6s ease-in-out infinite; }
+        @keyframes floating { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
+        
+        .pulse-glow { animation: pulseGlow 2s ease-in-out infinite; }
+        @keyframes pulseGlow { 0%, 100% { box-shadow: 0 0 20px rgba(0, 245, 160, 0.3); } 50% { box-shadow: 0 0 40px rgba(0, 245, 160, 0.6); } }
+        
+        .nav-link { position: relative; color: #ffffff; transition: color 0.3s ease; }
+        .nav-link::before { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: linear-gradient(90deg, #00F5A0, #00D9F5); transition: width 0.3s ease; }
+        .nav-link:hover { color: #00F5A0; }
+        .nav-link:hover::before { width: 100%; }
+        
+        #mobile-menu { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+        #mobile-menu.open { max-height: 600px; }
+        
+        .service-icon { background: linear-gradient(135deg, rgba(0, 245, 160, 0.1) 0%, rgba(0, 217, 245, 0.1) 100%); border: 1px solid rgba(0, 245, 160, 0.2); }
+        
+        input, textarea { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: #ffffff; transition: all 0.3s ease; }
+        input:focus, textarea:focus { background: rgba(255, 255, 255, 0.08); border-color: #00F5A0; outline: none; }
+        input::placeholder, textarea::placeholder { color: rgba(255, 255, 255, 0.4); }
+        
+        /* Chatbot Styles */
+        .chatbot-button { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #00F5A0 0%, #00D9F5 100%); display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 20px rgba(0, 245, 160, 0.4); transition: all 0.3s ease; z-index: 1000; }
+        .chatbot-button:hover { transform: scale(1.1); box-shadow: 0 6px 30px rgba(0, 245, 160, 0.6); }
+        
+        .chatbot-window { position: fixed; bottom: 100px; right: 30px; width: 380px; height: 550px; background: rgba(15, 15, 15, 0.98); backdrop-filter: blur(20px); border: 1px solid rgba(0, 245, 160, 0.3); border-radius: 20px; display: none; flex-direction: column; box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5); z-index: 1000; animation: slideUp 0.3s ease; }
+        .chatbot-window.active { display: flex; }
+        
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .chatbot-header { background: linear-gradient(135deg, #00F5A0 0%, #00D9F5 100%); padding: 20px; border-radius: 20px 20px 0 0; display: flex; justify-content: space-between; align-items: center; }
+        .chatbot-messages { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 15px; }
+        .chatbot-messages::-webkit-scrollbar { width: 6px; }
+        .chatbot-messages::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); }
+        .chatbot-messages::-webkit-scrollbar-thumb { background: rgba(0, 245, 160, 0.3); border-radius: 3px; }
+        
+        .message { max-width: 80%; padding: 12px 16px; border-radius: 16px; animation: fadeIn 0.3s ease; }
+        .message.bot { align-self: flex-start; background: rgba(0, 245, 160, 0.1); border: 1px solid rgba(0, 245, 160, 0.2); color: #ffffff; }
+        .message.user { align-self: flex-end; background: linear-gradient(135deg, #00F5A0 0%, #00D9F5 100%); color: #0a0a0a; font-weight: 500; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .chatbot-input-area { padding: 20px; border-top: 1px solid rgba(255, 255, 255, 0.1); display: flex; gap: 10px; }
+        .chatbot-input { flex: 1; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: #ffffff; padding: 12px 16px; border-radius: 12px; font-size: 14px; }
+        .chatbot-input:focus { outline: none; border-color: #00F5A0; background: rgba(255, 255, 255, 0.08); }
+        .chatbot-send { background: linear-gradient(135deg, #00F5A0 0%, #00D9F5 100%); border: none; color: #0a0a0a; width: 45px; height: 45px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; }
+        .chatbot-send:hover { transform: scale(1.05); }
+        
+        .typing-indicator { display: flex; gap: 4px; padding: 12px 16px; background: rgba(0, 245, 160, 0.1); border: 1px solid rgba(0, 245, 160, 0.2); border-radius: 16px; width: fit-content; }
+        .typing-indicator span { width: 8px; height: 8px; background: #00F5A0; border-radius: 50%; animation: typing 1.4s infinite; }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typing { 0%, 60%, 100% { transform: translateY(0); opacity: 0.7; } 30% { transform: translateY(-10px); opacity: 1; } }
+        
+        .quick-replies { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+        .quick-reply-btn { background: rgba(0, 245, 160, 0.1); border: 1px solid rgba(0, 245, 160, 0.3); color: #00F5A0; padding: 8px 14px; border-radius: 20px; font-size: 13px; cursor: pointer; transition: all 0.3s ease; }
+        .quick-reply-btn:hover { background: rgba(0, 245, 160, 0.2); border-color: #00F5A0; }
+        
+        @media (max-width: 768px) { 
+            .chatbot-window { width: calc(100% - 40px); right: 20px; left: 20px; height: 500px; } 
+            .chatbot-button { bottom: 20px; right: 20px; }
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+    <!-- Navigation -->
+    <nav class="fixed w-full top-0 z-50 nav-glass">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center space-x-2">
+                   <div class="w-10 h-10 gradient-primary rounded-lg flex items-center justify-center pulse-glow">
+    <i class="fas fa-bolt text-black text-xl"></i>
+</div>
+                    <span class="text-2xl font-bold">KT <span class="gradient-text">AutomateX</span></span>
+                </div>
+                
+                <div class="hidden lg:flex space-x-8">
+                    <a href="#home" class="nav-link">Home</a>
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#services" class="nav-link">Services</a>
+                    <a href="#testimonials" class="nav-link">Testimonials</a>
+                    <a href="#blog" class="nav-link">Blog</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </div>
+                
+                <button onclick="toggleMobileMenu()" class="lg:hidden text-white">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+            
+            <div id="mobile-menu" class="lg:hidden">
+                <div class="px-2 pt-2 pb-4 space-y-2">
+                    <a href="#home" class="block px-4 py-3 text-white hover:bg-white/5 rounded-lg">Home</a>
+                    <a href="#about" class="block px-4 py-3 text-white hover:bg-white/5 rounded-lg">About</a>
+                    <a href="#services" class="block px-4 py-3 text-white hover:bg-white/5 rounded-lg">Services</a>
+                    <a href="#testimonials" class="block px-4 py-3 text-white hover:bg-white/5 rounded-lg">Testimonials</a>
+                    <a href="#blog" class="block px-4 py-3 text-white hover:bg-white/5 rounded-lg">Blog</a>
+                    <a href="#contact" class="block px-4 py-3 text-white hover:bg-white/5 rounded-lg">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative pt-32 pb-24 px-6 overflow-hidden mesh-gradient">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="space-y-8">
+                    <div class="inline-block px-4 py-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 text-cyan-400 text-sm font-medium">
+                        <i class="fas fa-rocket mr-2"></i>Next-Gen Automation Platform
+                    </div>
+                    <h1 class="text-6xl lg:text-7xl font-bold leading-tight">
+                        Automate<br/><span class="gradient-text">Everything.</span><br/>Elevate Business.
+                    </h1>
+                    <p class="text-xl text-gray-400 leading-relaxed">Transform your operations with intelligent automation solutions that scale. Powered by AI, designed for the future.</p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#contact" class="btn-primary px-8 py-4 rounded-xl inline-flex items-center space-x-2">
+                            <span>Start Your Journey</span><i class="fas fa-arrow-right"></i>
+                        </a>
+                        <a href="#services" class="btn-outline px-8 py-4 rounded-xl inline-flex items-center space-x-2">
+                            <span>Explore Services</span><i class="fas fa-chevron-down"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="relative floating">
+                    <div class="glass-card rounded-3xl p-12 glow-effect">
+                        <div class="grid grid-cols-2 gap-6">
+                            <div class="text-center space-y-2"><div class="text-4xl">⚡</div><div class="text-2xl font-bold gradient-text">500+</div><div class="text-sm text-gray-400">Projects</div></div>
+                            <div class="text-center space-y-2"><div class="text-4xl">🚀</div><div class="text-2xl font-bold gradient-text">98%</div><div class="text-sm text-gray-400">Success</div></div>
+                            <div class="text-center space-y-2"><div class="text-4xl">💎</div><div class="text-2xl font-bold gradient-text">150+</div><div class="text-sm text-gray-400">Clients</div></div>
+                            <div class="text-center space-y-2"><div class="text-4xl">🌐</div><div class="text-2xl font-bold gradient-text">24/7</div><div class="text-sm text-gray-400">Support</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <div class="inline-block px-4 py-2 rounded-full border border-purple-400/30 bg-purple-400/10 text-purple-400 text-sm font-medium mb-6">About Us</div>
+                <h2 class="text-5xl lg:text-6xl font-bold mb-6">Building The <span class="gradient-text">Future</span><br/>of Automation</h2>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="glass-card rounded-3xl p-2 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=800" alt="Team" class="rounded-2xl w-full">
+                </div>
+                <div class="space-y-8">
+                    <div><h3 class="text-3xl font-bold mb-4">Innovation at Our Core</h3><p class="text-gray-400 leading-relaxed">At KT AutomateX, we blend cutting-edge technology with deep industry expertise to deliver automation solutions that truly transform businesses.</p></div>
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="service-icon w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"><i class="fas fa-brain text-cyan-400 text-xl"></i></div>
+                            <div><h4 class="text-xl font-semibold mb-2">AI-Powered Intelligence</h4><p class="text-gray-400">Leverage machine learning and AI to create smarter workflows.</p></div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="service-icon w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"><i class="fas fa-shield-alt text-cyan-400 text-xl"></i></div>
+                            <div><h4 class="text-xl font-semibold mb-2">Enterprise-Grade Security</h4><p class="text-gray-400">Bank-level encryption to protect your data.</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <div class="inline-block px-4 py-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 text-cyan-400 text-sm font-medium mb-6">Our Services</div>
+                <h2 class="text-5xl lg:text-6xl font-bold mb-6">Automation <span class="gradient-text">Solutions</span><br/>That Scale</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="glass-card rounded-3xl p-8 hover-lift">
+                    <div class="service-icon w-16 h-16 rounded-2xl flex items-center justify-center mb-6"><i class="fas fa-project-diagram text-cyan-400 text-3xl"></i></div>
+                    <h3 class="text-2xl font-bold mb-4">Workflow Automation</h3>
+                    <p class="text-gray-400 mb-6">Streamline complex processes with intelligent automation.</p>
+                    <ul class="space-y-3 text-gray-400">
+                        <li class="flex items-center"><i class="fas fa-check text-cyan-400 mr-3"></i>Process Optimization</li>
+                        <li class="flex items-center"><i class="fas fa-check text-cyan-400 mr-3"></i>Smart Scheduling</li>
+                    </ul>
+                </div>
+                
+                <div class="glass-card rounded-3xl p-8 hover-lift">
+                    <div class="service-icon w-16 h-16 rounded-2xl flex items-center justify-center mb-6"><i class="fas fa-robot text-cyan-400 text-3xl"></i></div>
+                    <h3 class="text-2xl font-bold mb-4">RPA Implementation</h3>
+                    <p class="text-gray-400 mb-6">Deploy intelligent bots that handle repetitive tasks.</p>
+                    <ul class="space-y-3 text-gray-400">
+                        <li class="flex items-center"><i class="fas fa-check text-cyan-400 mr-3"></i>Bot Development</li>
+                        <li class="flex items-center"><i class="fas fa-check text-cyan-400 mr-3"></i>System Integration</li>
+                    </ul>
+                </div>
+                
+                <div class="glass-card rounded-3xl p-8 hover-lift">
+                    <div class="service-icon w-16 h-16 rounded-2xl flex items-center justify-center mb-6"><i class="fas fa-brain text-cyan-400 text-3xl"></i></div>
+                    <h3 class="text-2xl font-bold mb-4">AI & ML Integration</h3>
+                    <p class="text-gray-400 mb-6">Enhance automation with artificial intelligence.</p>
+                    <ul class="space-y-3 text-gray-400">
+                        <li class="flex items-center"><i class="fas fa-check text-cyan-400 mr-3"></i>Machine Learning</li>
+                        <li class="flex items-center"><i class="fas fa-check text-cyan-400 mr-3"></i>Predictive Analytics</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-24 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <div class="inline-block px-4 py-2 rounded-full border border-pink-400/30 bg-pink-400/10 text-pink-400 text-sm font-medium mb-6">Testimonials</div>
+                <h2 class="text-5xl lg:text-6xl font-bold mb-6">Loved by <span class="gradient-text">Industry Leaders</span></h2>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass-card rounded-3xl p-8 hover-lift">
+                    <div class="flex items-center mb-6 space-x-1">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                    <p class="text-gray-300 mb-8">"KT AutomateX completely transformed our operations. We've reduced processing time by 60%."</p>
+                    <div class="flex items-center">
+                        <div class="w-14 h-14 bg-cyan-400/20 rounded-full flex items-center justify-center mr-4"><span class="text-cyan-400 font-bold text-lg">SJ</span></div>
+                        <div><div class="font-semibold">Sarah Johnson</div><div class="text-sm text-gray-400">CEO, TechVision</div></div>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-3xl p-8 hover-lift">
+                    <div class="flex items-center mb-6 space-x-1">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                    <p class="text-gray-300 mb-8">"The expertise of KT AutomateX is unmatched. They delivered beyond expectations."</p>
+                    <div class="flex items-center">
+                        <div class="w-14 h-14 bg-cyan-400/20 rounded-full flex items-center justify-center mr-4"><span class="text-cyan-400 font-bold text-lg">MP</span></div>
+                        <div><div class="font-semibold">Michael Peters</div><div class="text-sm text-gray-400">Director, GlobalCorp</div></div>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-3xl p-8 hover-lift">
+                    <div class="flex items-center mb-6 space-x-1">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                    <p class="text-gray-300 mb-8">"Working with KT AutomateX has been a game-changer for our business efficiency."</p>
+                    <div class="flex items-center">
+                        <div class="w-14 h-14 bg-cyan-400/20 rounded-full flex items-center justify-center mr-4"><span class="text-cyan-400 font-bold text-lg">EC</span></div>
+                        <div><div class="font-semibold">Emily Chen</div><div class="text-sm text-gray-400">CTO, InnovateNow</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="py-24 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <div class="inline-block px-4 py-2 rounded-full border border-blue-400/30 bg-blue-400/10 text-blue-400 text-sm font-medium mb-6">Latest Blog</div>
+                <h2 class="text-5xl lg:text-6xl font-bold mb-6">Insights & <span class="gradient-text">Trends</span></h2>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass-card rounded-3xl overflow-hidden hover-lift">
+                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600" alt="Cloud" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="text-sm text-cyan-400 font-semibold mb-2">TECHNOLOGY</div>
+                        <h3 class="text-xl font-bold mb-3">Cloud-Native Automation Guide</h3>
+                        <p class="text-gray-400 mb-4">Leverage cloud for scalable automation.</p>
+                        <a href="#" class="text-cyan-400 font-semibold">Read More →</a>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-3xl overflow-hidden hover-lift">
+                    <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600" alt="AI" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="text-sm text-cyan-400 font-semibold mb-2">AUTOMATION</div>
+                        <h3 class="text-xl font-bold mb-3">The Future of AI-Powered Automation</h3>
+                        <p class="text-gray-400 mb-4">Explore how AI is reshaping automation.</p>
+                        <a href="#" class="text-cyan-400 font-semibold">Read More →</a>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-3xl overflow-hidden hover-lift">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600" alt="RPA" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="text-sm text-cyan-400 font-semibold mb-2">BEST PRACTICES</div>
+                        <h3 class="text-xl font-bold mb-3">10 Ways RPA Transforms Business</h3>
+                        <p class="text-gray-400 mb-4">Practical applications of automation.</p>
+                        <a href="#" class="text-cyan-400 font-semibold">Read More →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <div class="inline-block px-4 py-2 rounded-full border border-green-400/30 bg-green-400/10 text-green-400 text-sm font-medium mb-6">Get In Touch</div>
+                <h2 class="text-5xl lg:text-6xl font-bold mb-6">Let's Build <span class="gradient-text">Together</span></h2>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-bold mb-6">Send Us a Message</h3>
+                    <form class="space-y-6" onsubmit="handleSubmit(event)">
+                        <div>
+                            <label class="block text-gray-300 font-semibold mb-2">Full Name</label>
+                            <input type="text" id="name" class="w-full px-4 py-3 rounded-lg" placeholder="John Doe" required>
+                        </div>
+                        <div>
+                            <label class="block text-gray-300 font-semibold mb-2">Email Address</label>
+                            <input type="email" id="email" class="w-full px-4 py-3 rounded-lg" placeholder="john@example.com" required>
+                        </div>
+                        <div>
+                            <label class="block text-gray-300 font-semibold mb-2">Phone Number</label>
+                            <input type="tel" id="phone" class="w-full px-4 py-3 rounded-lg" placeholder="+1 (555) 123-4567">
+                        </div>
+                        <div>
+                            <label class="block text-gray-300 font-semibold mb-2">Message</label>
+                            <textarea id="message" rows="5" class="w-full px-4 py-3 rounded-lg" placeholder="Tell us about your automation needs..." required></textarea>
+                        </div>
+                        <button type="submit" class="w-full btn-primary px-8 py-4 rounded-xl font-semibold">Send Message</button>
+                    </form>
+                </div>
+                
+                <div class="space-y-8">
+                    <h3 class="text-2xl font-bold">Contact Information</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="service-icon w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-map-marker-alt text-cyan-400 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg mb-1">Office Location</h4>
+                                <p class="text-gray-400">123 KT AutomateX, District Battagram, Thakot 21030</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="service-icon w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-envelope text-cyan-400 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg mb-1">Email</h4>
+                                <p class="text-gray-400">ktautomatex@gmail.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="service-icon w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-phone text-cyan-400 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg mb-1">Phone</h4>
+                                <p class="text-gray-400">+92 3459464251<br>Mon-Fri, 9AM-6PM PST</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 border-t border-white/10">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                      <div class="w-10 h-10 rounded-lg overflow-hidden">
+    <img src="https://i.ibb.co/HDP307Nn/Untitled-design.png" alt="KT AutomateX Logo" class="w-full h-full object-contain">
+</div>
+                        <span class="text-xl font-bold">KT <span class="gradient-text">AutomateX</span></span>
+                    </div>
+                    <p class="text-gray-400 mb-6">Transforming businesses through intelligent automation.</p>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-6">Services</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#services" class="hover:text-cyan-400 transition">Workflow Automation</a></li>
+                        <li><a href="#services" class="hover:text-cyan-400 transition">RPA Solutions</a></li>
+                        <li><a href="#services" class="hover:text-cyan-400 transition">AI Integration</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-6">Company</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#about" class="hover:text-cyan-400 transition">About Us</a></li>
+                        <li><a href="#blog" class="hover:text-cyan-400 transition">Blog</a></li>
+                        <li><a href="#contact" class="hover:text-cyan-400 transition">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-6">Contact</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li class="flex items-center"><i class="fas fa-envelope text-cyan-400 mr-3"></i>ktautomatex@gmail.com</li>
+                        <li class="flex items-center"><i class="fas fa-phone text-cyan-400 mr-3"></i>+92 3459464251</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-white/10 text-center text-gray-400">
+                <p>&copy; 2025 KT AutomateX. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chatbot Button -->
+    <div class="chatbot-button" onclick="toggleChatbot()">
+        <i class="fas fa-comments text-black text-2xl"></i>
+    </div>
+
+    <!-- Chatbot Window -->
+    <div class="chatbot-window" id="chatbotWindow">
+        <div class="chatbot-header">
+            <div>
+                <h2 class="text-xl font-bold text-black">KT AutomateX Assistant</h2>
+                <p class="text-sm text-black/80">How can we help you today?</p>
+            </div>
+            <button onclick="toggleChatbot()" class="text-black hover:text-black/70 transition">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+        
+        <div class="chatbot-messages" id="chatbotMessages">
+            <div class="message bot">
+                <div class="text-sm text-gray-300 mb-2">Bot</div>
+                Hello! I'm your KT AutomateX assistant. How can I help you today?
+            </div>
+            
+            <!-- Quick Reply Buttons -->
+            <div class="quick-replies">
+                <button class="quick-reply-btn" onclick="sendQuickReply('Tell me about your services')">
+                    Our Services
+                </button>
+                <button class="quick-reply-btn" onclick="sendQuickReply('What is workflow automation?')">
+                    Workflow Automation
+                </button>
+                <button class="quick-reply-btn" onclick="sendQuickReply('How can I get started?')">
+                    Get Started
+                </button>
+                <button class="quick-reply-btn" onclick="sendQuickReply('Pricing information')">
+                    Pricing
+                </button>
+            </div>
+        </div>
+        
+        <div class="chatbot-input-area">
+            <input 
+                type="text" 
+                class="chatbot-input" 
+                id="chatbotInput" 
+                placeholder="Type your message..."
+                onkeypress="handleChatKeypress(event)"
+            >
+            <button class="chatbot-send" onclick="sendChatMessage()">
+                <i class="fas fa-paper-plane text-lg"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('open');
+        }
+
+        // Contact Form Handler
+        async function handleSubmit(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const message = document.getElementById('message').value;
+
+            const formData = { name, email, phone, message };
+
+            try {
+                const res = await fetch('https://n8n.srv1010054.hstgr.cloud/webhook/contact-form', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                if (res.ok) {
+                    alert("✅ Message sent successfully!");
+                    e.target.reset();
+                } else {
+                    alert("⚠️ Error sending message. Please try again.");
+                    console.error(await res.text());
+                }
+            } catch (err) {
+                alert("⚠️ Failed to send message. Please try again later.");
+                console.error(err);
+            }
+        }
+
+        // CHATBOT FUNCTIONALITY
+        const CHATBOT_WEBHOOK_URL = 'https://n8n.srv1010054.hstgr.cloud/webhook/53ef7253-69ea-41ae-9cd7-f9954838345d/chat';
+
+        let chatHistory = [];
+        let isChatbotOpen = false;
+
+        // Toggle chatbot window
+        function toggleChatbot() {
+            const chatbotWindow = document.getElementById('chatbotWindow');
+            isChatbotOpen = !isChatbotOpen;
+            
+            if (isChatbotOpen) {
+                chatbotWindow.classList.add('active');
+                document.getElementById('chatbotInput').focus();
+            } else {
+                chatbotWindow.classList.remove('active');
+            }
+        }
+
+        // Handle Enter key press
+        function handleChatKeypress(event) {
+            if (event.key === 'Enter') {
+                sendChatMessage();
+            }
+        }
+
+        // Send quick reply
+        function sendQuickReply(message) {
+            document.getElementById('chatbotInput').value = message;
+            sendChatMessage();
+        }
+
+        // Add message to chat
+        function addChatMessage(content, isUser = false) {
+            const messagesContainer = document.getElementById('chatbotMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
+            
+            if (!isUser) {
+                const label = document.createElement('div');
+                label.className = 'text-sm text-gray-300 mb-2';
+                label.textContent = 'Bot';
+                messageDiv.appendChild(label);
+            }
+            
+            const contentDiv = document.createElement('div');
+            contentDiv.textContent = content;
+            messageDiv.appendChild(contentDiv);
+            
+            messagesContainer.appendChild(messageDiv);
+            
+            // Auto scroll to bottom
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            
+            // Store in history
+            chatHistory.push({
+                role: isUser ? 'user' : 'assistant',
+                content: content
+            });
+        }
+
+        // Show typing indicator
+        function showTypingIndicator() {
+            const messagesContainer = document.getElementById('chatbotMessages');
+            const typingDiv = document.createElement('div');
+            typingDiv.id = 'typingIndicator';
+            typingDiv.className = 'typing-indicator';
+            typingDiv.innerHTML = '<span></span><span></span><span></span>';
+            messagesContainer.appendChild(typingDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // Hide typing indicator
+        function hideTypingIndicator() {
+            const typingIndicator = document.getElementById('typingIndicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+
+        // Send message to n8n
+        async function sendChatMessage() {
+            const input = document.getElementById('chatbotInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Add user message
+            addChatMessage(message, true);
+            input.value = '';
+            
+            // Disable input
+            input.disabled = true;
+            
+            // Show typing indicator
+            showTypingIndicator();
+            
+           try {
+    const response = await fetch(CHATBOT_WEBHOOK_URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            chatInput: message,
+            sessionId: getChatSessionId()
+        })
+    });
+    
+    hideTypingIndicator();
+    
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    
+    // n8n AI Agent typically returns response in 'output' field
+    const botResponse = data.output || data.response || data.message || 'I received your message! Our team will get back to you soon.';
+    
+    addChatMessage(botResponse, false);
+                
+            } catch (error) {
+                console.error('Chatbot error:', error);
+                hideTypingIndicator();
+                addChatMessage('Sorry, I encountered an error. Please try again or contact us directly at ktautomatex@gmail.com', false);
+            } finally {
+                input.disabled = false;
+                input.focus();
+            }
+        }
+
+        // Get or create session ID
+        function getChatSessionId() {
+            let sessionId = sessionStorage.getItem('ktChatSessionId');
+            if (!sessionId) {
+                sessionId = 'kt_chat_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                sessionStorage.setItem('ktChatSessionId', sessionId);
+            }
+            return sessionId;
+        }
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (mobileMenu.classList.contains('open')) {
+                        mobileMenu.classList.remove('open');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
