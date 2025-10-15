@@ -1,0 +1,189 @@
+{
+  "name": "KT Automatex",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "contact-form",
+        "options": {
+          "responseData": "{ \"status\": \"success\", \"message\": \"Form received successfully!\" }"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -432,
+        -32
+      ],
+      "id": "d057a824-2b51-45de-8d45-1253f6d7a1f7",
+      "name": "Contact Form Trigger",
+      "webhookId": "c103703c-d28b-492e-915f-4ef25b302c39"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1XfjWnM-Z29ZdoRSbvhzaC2G1d7FK50e750gDLvz84MM",
+          "mode": "list",
+          "cachedResultName": "KT AutomateX Leads",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1XfjWnM-Z29ZdoRSbvhzaC2G1d7FK50e750gDLvz84MM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1XfjWnM-Z29ZdoRSbvhzaC2G1d7FK50e750gDLvz84MM/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Timestamp": "={{$now}}",
+            "Full Name": "={{ $json.body.name }}",
+            "Email ": "={{ $json.body.email }}",
+            "Phone": "={{ $json.body.phone }}",
+            "Message": "={{ $json.body.message }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Full Name",
+              "displayName": "Full Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Email ",
+              "displayName": "Email ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Phone",
+              "displayName": "Phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Message",
+              "displayName": "Message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -224,
+        -32
+      ],
+      "id": "1daac361-4650-464e-9f9d-546441e609e9",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "8CPGJK2TQoAFMCsU",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json['Email '] }}",
+        "subject": "Thank you for contacting KT AutomateX.",
+        "emailType": "text",
+        "message": "=Hi,{{ $json['Full Name'] }}Thank you for reaching out to **KT AutomateX**.   We’ve received your message and our automation expert will contact you soon.    Your details:   📧 Email:  {{ $json['Email '] }}  📞 Phone: {{ $json.Phone }}   💬 Message: {{ $json.Message }}  Best regards,   KT AutomateX Team 🤖",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -16,
+        -32
+      ],
+      "id": "548b16ad-4cef-4b08-8c09-626acdc70e53",
+      "name": "Send a message",
+      "webhookId": "432ccb8d-b58a-4dca-ac76-cfd3161b3776",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "tZFj62DHwiHgNKGq",
+          "name": "Gmail account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Contact Form Trigger": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "85338b6a-5efa-4a64-9c02-39db4c0ad76f",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "a01e364283179451277eb63a223aaf9f36c8be9f729d59614d57fc6240f28ba3"
+  },
+  "id": "AihVeAZEx0GC9jDA",
+  "tags": [
+    {
+      "createdAt": "2025-10-08T15:34:21.063Z",
+      "updatedAt": "2025-10-08T15:34:21.063Z",
+      "id": "iF6vG8jo4Nyrvu7q",
+      "name": "Form Submission"
+    }
+  ]
+}
