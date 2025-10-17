@@ -1,0 +1,8 @@
+# Posts
+
+This folder is intended to store documentation and helper scripts related to using the repository's fine-grained Personal Access Token (Repo_Fine_Grain_Token).
+
+Guidance:
+- Never commit tokens into the repository.
+- Use repository secrets (Settings → Secrets and variables → Actions) and reference them in workflows as `${{ secrets.Repo_Fine_Grain_Token }}`.
+- If you add automation that pushes changes, create a branch and open a PR (branch-protection-friendly).
