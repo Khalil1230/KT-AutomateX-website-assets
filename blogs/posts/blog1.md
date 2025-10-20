@@ -1,0 +1,1 @@
+body of blog1
