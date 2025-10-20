@@ -1,0 +1,5 @@
+index.html/
+ ├── blogs/
+ │   └── posts/
+ │       └── .gitkeep
+ └── README.md
